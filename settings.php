@@ -51,6 +51,10 @@ if ($ADMIN->fulltree) {
         new lang_string('requirecountryandcity', 'auth_customized'),
         new lang_string('requirecountryandcity_help', 'auth_customized'), 0, $options));
 
+    $settings->add(new admin_setting_configtext('auth_customized/fieldsorder',
+        new lang_string('fieldsorder', 'auth_customized'),
+        new lang_string('fieldsorder_help', 'auth_customized'), ''));
+
     // Display locking / mapping of profile fields.
     $authplugin = get_auth_plugin('customized');
     display_auth_lock_options($settings, $authplugin->authtype, $authplugin->userfields,

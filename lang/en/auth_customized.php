@@ -28,6 +28,10 @@ $string['privacy:metadata'] = 'The Customized self-registration authentication p
 $string['confirmpassword'] = 'Confirm password';
 $string['confirmpassword_help'] = 'If enabled, the user will be required to confirm their password in the signup form.';
 $string['description'] = '<p>Customized self-registration enables a user to create their own account via a \'Create new account\' button on the login page. The user then receives an email containing a secure link to a page where they can confirm their account. Future logins just check the username and password against the stored values in the Moodle database.</p><p>Note: In addition to enabling the plugin, customized-based self-registration must also be selected from the self registration drop-down menu on the \'Manage authentication\' page.</p>';
+$string['fieldsorder'] = 'Fields order';
+$string['fieldsorder_help'] = 'A custom fields order. Use the fields name separated by commas. Example: firstname,lastname,email.<br />
+If empty, the fields will be displayed in the default order.<br />
+Available fields and default order: username, password, email, requirednames, city, country.';
 $string['noemail'] = 'Tried to send you an email but failed!';
 $string['passwordagain'] = 'Password (again)';
 $string['passwordsdiffer'] = 'The password confirmation does not match the password you entered.';
