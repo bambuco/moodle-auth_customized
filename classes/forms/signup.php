@@ -36,7 +36,7 @@ use templatable;
 
 class signup extends moodleform implements renderable, templatable {
     function definition() {
-        global $CFG;
+        global $CFG, $PAGE;
 
         $mform = $this->_form;
 
@@ -108,6 +108,8 @@ class signup extends moodleform implements renderable, templatable {
                     ]);
                     $mform->setType('password', \core_user::get_property_type('password'));
                     $mform->addRule('password2', get_string('missingpassword'), 'required', null, 'client');
+
+                    $PAGE->requires->js_call_amd('auth_customized/validations', 'passwordAgain');
 
                 }
             } else if ($currentfield == 'requirednames') {

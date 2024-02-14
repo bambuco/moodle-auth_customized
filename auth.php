@@ -18,7 +18,7 @@
  * Authentication Plugin.
  *
  * @package    auth_customized
- * @copyright  2023 David Herney @ BambuCo
+ * @copyright  2024 David Herney @ BambuCo
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
