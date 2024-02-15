@@ -14,6 +14,9 @@ Download zip package, extract the customized folder and upload this folder into 
 
 ## IN VERSION
 
+### 2024012002:
+* New customized reset password page. Funded by [CIDET](https://cidet.org.co/)
+
 ### 2024012001:
 * Password confirmation, use the email as username, country and city requirements optionals. Funded by [CIDET](https://cidet.org.co/)
 

@@ -55,6 +55,18 @@ if ($ADMIN->fulltree) {
         new lang_string('fieldsorder', 'auth_customized'),
         new lang_string('fieldsorder_help', 'auth_customized'), ''));
 
+    // Forgot password options.
+    $settings->add(new admin_setting_configtext('auth_customized/settingsheaderforgotpassword',
+        new lang_string('settingsheaderforgotpassword', 'auth_customized'), '', ''));
+
+    $settings->add(new admin_setting_configselect('auth_customized/forgotpasswordbyusername',
+        new lang_string('forgotpasswordbyusername', 'auth_customized'),
+        new lang_string('forgotpasswordbyusername_help', 'auth_customized'), 0, $options));
+
+    $settings->add(new admin_setting_configselect('auth_customized/forgotpasswordbyemail',
+        new lang_string('forgotpasswordbyemail', 'auth_customized'),
+        new lang_string('forgotpasswordbyemail_help', 'auth_customized'), 1, $options));
+
     // Display locking / mapping of profile fields.
     $authplugin = get_auth_plugin('customized');
     display_auth_lock_options($settings, $authplugin->authtype, $authplugin->userfields,

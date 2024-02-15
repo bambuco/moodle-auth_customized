@@ -28,13 +28,20 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/formslib.php');
 require_once($CFG->dirroot . '/user/profile/lib.php');
 require_once($CFG->dirroot . '/user/editlib.php');
-//require_once('lib.php');
 
 use moodleform;
 use renderable;
 use templatable;
 
+/**
+ * Signup form implementation.
+ *
+ * @package    auth_customized
+ * @copyright  2024 David Herney @ BambuCo
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class signup extends moodleform implements renderable, templatable {
+
     function definition() {
         global $CFG, $PAGE;
 
