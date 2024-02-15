@@ -56,7 +56,7 @@ if ($ADMIN->fulltree) {
         new lang_string('fieldsorder_help', 'auth_customized'), ''));
 
     // Forgot password options.
-    $settings->add(new admin_setting_configtext('auth_customized/settingsheaderforgotpassword',
+    $settings->add(new admin_setting_heading('auth_customized/settingsheaderforgotpassword',
         new lang_string('settingsheaderforgotpassword', 'auth_customized'), '', ''));
 
     $settings->add(new admin_setting_configselect('auth_customized/forgotpasswordbyusername',
