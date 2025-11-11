@@ -158,16 +158,16 @@ class signup extends moodleform implements renderable, templatable {
         profile_signup_fields($mform);
 
         if (!empty($config->recaptcha)) {
-            if (signup_captcha_enabled()) {
-                $mform->addElement('recaptcha', 'recaptcha_element', get_string('security_question', 'auth'));
-                $mform->addHelpButton('recaptcha_element', 'recaptcha', 'auth');
-                $mform->closeHeaderBefore('recaptcha_element');
-            } else if (file_exists($CFG->dirroot . '/theme/bambuco/version.php')) {
+            if (get_config('theme_bambuco', 'usealtcha')) {
                 // If BambuCo theme is installed, use the Altcha widget.
                 $altchaparams = \theme_bambuco\local\utils::get_altcha_widget_params('signup');
                 $altchahtml = $PAGE->get_renderer('core')->render_from_template('theme_bambuco/altchawidget', $altchaparams);
                 $mform->addElement('static', 'altcha', get_string('security_question', 'auth'), $altchahtml);
                 $mform->addHelpButton('altcha', 'recaptcha', 'auth');
+            } else if (signup_captcha_enabled()) {
+                $mform->addElement('recaptcha', 'recaptcha_element', get_string('security_question', 'auth'));
+                $mform->addHelpButton('recaptcha_element', 'recaptcha', 'auth');
+                $mform->closeHeaderBefore('recaptcha_element');
             }
         }
 
@@ -222,7 +222,13 @@ class signup extends moodleform implements renderable, templatable {
         $errors = array_merge($errors, core_login_validate_extend_signup_form($data));
 
         if (!empty($config->recaptcha)) {
-            if (signup_captcha_enabled()) {
+            if (get_config('theme_bambuco', 'usealtcha')) {
+                // If BambuCo theme is installed, validate the Altcha solution.
+                $ok = \theme_bambuco\local\utils::validate_altcha_solution('signup');
+                if (!$ok) {
+                    $errors['altcha'] = get_string('incorrectpleasetryagain', 'auth');
+                }
+            } else if (signup_captcha_enabled()) {
                 $recaptchaelement = $this->_form->getElement('recaptcha_element');
                 if (!empty($this->_form->_submitValues['g-recaptcha-response'])) {
                     $response = $this->_form->_submitValues['g-recaptcha-response'];
@@ -231,12 +237,6 @@ class signup extends moodleform implements renderable, templatable {
                     }
                 } else {
                     $errors['recaptcha_element'] = get_string('missingrecaptchachallengefield');
-                }
-            } else if (file_exists($CFG->dirroot . '/theme/bambuco/version.php')) {
-                // If BambuCo theme is installed, validate the Altcha solution.
-                $ok = \theme_bambuco\local\utils::validate_altcha_solution('signup');
-                if (!$ok) {
-                    $errors['altcha'] = get_string('incorrectpleasetryagain', 'auth');
                 }
             }
         }
