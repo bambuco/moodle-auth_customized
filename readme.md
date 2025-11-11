@@ -2,17 +2,19 @@
 
 An auth component based in auth_email component with parameters to customize the user signup process.
 
-Package tested in: moodle 4.1+
+Package tested in: moodle 4.5+
 
 ## QUICK INSTALL
 Download zip package, extract the customized folder and upload this folder into auth/.
 
 ## ABOUT
-* **Developed by:** David Herney - davidbernal at bambuco dot co
+* **Developed by:** David Herney - davidherney at bambuco dot co
 * **GIT:** https://github.com/bambuco/moodle-auth_customized
 * **Powered by:** [BambuCo](https://bambuco.co/) - [CIDET](https://cidet.org.co/)
 
 ## IN VERSION
+### 2025111100:
+* Include Altcha if BambuCo theme is installed.
 
 ### 2024012002:
 * New customized reset password page. Funded by [CIDET](https://cidet.org.co/)
