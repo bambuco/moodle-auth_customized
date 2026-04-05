@@ -24,10 +24,10 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2025111100;
+$plugin->version   = 2025111101;
 $plugin->requires  = 2022111800;
 $plugin->component = 'auth_customized';
-$plugin->maturity  = MATURITY_RC;
+$plugin->maturity  = MATURITY_STABLE;
 $plugin->dependencies = [
     'auth_email' => 2022112800,
 ];

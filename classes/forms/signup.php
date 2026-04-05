@@ -41,7 +41,6 @@ use templatable;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class signup extends moodleform implements renderable, templatable {
-
     function definition() {
         global $CFG, $PAGE;
 
@@ -55,10 +54,19 @@ class signup extends moodleform implements renderable, templatable {
             $availablefields = ['email', 'password', 'requirednames', 'city', 'country'];
         }
 
+        // Index profile signup fields by their inputname (e.g. profile_field_departamento).
+        $profilesignupfields = [];
+        if ($signupfields = profile_get_signup_fields()) {
+            foreach ($signupfields as $field) {
+                $inputname = 'profile_field_' . $field->object->get_shortname();
+                $profilesignupfields[$inputname] = $field;
+            }
+        }
+
         $fieldsorder = explode(',', $config->fieldsorder);
         $fieldsorder = array_map('trim', $fieldsorder);
-        $fieldsorder = array_filter($fieldsorder, function ($field) use ($availablefields) {
-            return in_array($field, $availablefields);
+        $fieldsorder = array_filter($fieldsorder, function ($field) use ($availablefields, $profilesignupfields) {
+            return in_array($field, $availablefields) || isset($profilesignupfields[$field]);
         });
 
         if (empty($fieldsorder)) {
@@ -72,10 +80,11 @@ class signup extends moodleform implements renderable, templatable {
             }
         }
 
+        // Track which profile fields are rendered inline via fieldsorder.
+        $renderedprofilefields = [];
+
         foreach ($fieldsorder as $currentfield) {
-
             if ($currentfield == 'email') {
-
                 $mform->addElement('text', 'email', get_string('email'), 'maxlength="100" size="25"');
                 $mform->setType('email', \core_user::get_property_type('email'));
                 $mform->addRule('email', get_string('missingemail'), 'required', null, 'client');
@@ -85,16 +94,13 @@ class signup extends moodleform implements renderable, templatable {
                 $mform->setType('email2', \core_user::get_property_type('email'));
                 $mform->addRule('email2', get_string('missingemail'), 'required', null, 'client');
                 $mform->setForceLtr('email2');
-
             } else if ($currentfield == 'username') {
-
                 if (empty($config->usernameisemail)) {
                     $mform->addElement('text', 'username', get_string('username'), 'maxlength="100" size="12" autocapitalize="none"');
                     $mform->setType('username', PARAM_RAW);
                     $mform->addRule('username', get_string('missingusername'), 'required', null, 'client');
                 }
             } else if ($currentfield == 'password') {
-
                 if (!empty($CFG->passwordpolicy)){
                     $mform->addElement('static', 'passwordpolicyinfo', '', print_password_policy());
                 }
@@ -117,10 +123,8 @@ class signup extends moodleform implements renderable, templatable {
                     $mform->addRule('password2', get_string('missingpassword'), 'required', null, 'client');
 
                     $PAGE->requires->js_call_amd('auth_customized/validations', 'passwordAgain');
-
                 }
             } else if ($currentfield == 'requirednames') {
-
                 $namefields = useredit_get_required_name_fields();
                 foreach ($namefields as $field) {
                     $mform->addElement('text', $field, get_string($field), 'maxlength="100" size="30"');
@@ -139,7 +143,7 @@ class signup extends moodleform implements renderable, templatable {
                         $mform->setDefault('city', $CFG->defaultcity);
                     }
                 }
-            } else if ($currentfield == 'requirednames') {
+            } else if ($currentfield == 'country') {
                 if (!empty($config->requirecountryandcity)) {
                     $country = get_string_manager()->get_list_of_countries();
                     $default_country[''] = get_string('selectacountry');
@@ -152,10 +156,28 @@ class signup extends moodleform implements renderable, templatable {
                         $mform->setDefault('country', '');
                     }
                 }
+            } else if (isset($profilesignupfields[$currentfield])) {
+                // Render a custom profile field in the specified order.
+                $profilefield = $profilesignupfields[$currentfield];
+                $profilefield->object->edit_field($mform);
+                $renderedprofilefields[$currentfield] = true;
             }
         }
 
-        profile_signup_fields($mform);
+        // Render remaining profile signup fields that were not explicitly ordered.
+        if ($profilesignupfields) {
+            $remainingfields = array_diff_key($profilesignupfields, $renderedprofilefields);
+            if ($remainingfields) {
+                foreach ($remainingfields as $field) {
+                    if (!isset($currentcat) || $currentcat != $field->categoryid) {
+                        $currentcat = $field->categoryid;
+                        $mform->addElement('header', 'category_' . $field->categoryid,
+                            format_string($field->categoryname));
+                    }
+                    $field->object->edit_field($mform);
+                }
+            }
+        }
 
         if (!empty($config->recaptcha)) {
             if (get_config('theme_bambuco', 'usealtcha')) {

@@ -13,6 +13,10 @@ Download zip package, extract the customized folder and upload this folder into 
 * **Powered by:** [BambuCo](https://bambuco.co/) - [CIDET](https://cidet.org.co/)
 
 ## IN VERSION
+
+### 2025111101:
+* Sort custom fields.
+
 ### 2025111100:
 * Include Altcha if BambuCo theme is installed.
 
