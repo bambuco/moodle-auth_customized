@@ -63,9 +63,9 @@ class auth_plugin_customized extends auth_plugin_email {
             $user->username = strtolower($user->email);
         }
 
-        if (!empty($config->requirecountryandcity)) {
+        if (empty($config->requirecountryandcity)) {
             $user->country = !empty($CFG->country) ? $CFG->country : '';
-            $user->city = '';
+            $user->city = !empty($CFG->defaultcity) ? $CFG->defaultcity : '';
         }
 
         return parent::user_signup_with_confirmation($user, $notify, $confirmationurl);
