@@ -22,9 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Customized self-registration';
-$string['privacy:metadata'] = 'The Customized self-registration authentication plugin does not store any personal data.';
-
 $string['confirmpassword'] = 'Confirm password';
 $string['confirmpassword_help'] = 'If enabled, the user will be required to confirm their password in the signup form.';
 $string['description'] = '<p>Customized self-registration enables a user to create their own account via a \'Create new account\' button on the login page. The user then receives an email containing a secure link to a page where they can confirm their account. Future logins just check the username and password against the stored values in the Moodle database.</p><p>Note: In addition to enabling the plugin, customized-based self-registration must also be selected from the self registration drop-down menu on the \'Manage authentication\' page.</p>';
@@ -44,6 +41,8 @@ $string['noemail'] = 'Tried to send you an email but failed!';
 $string['passwordagain'] = 'Password (again)';
 $string['passwordforgotteninstructions'] = 'Please enter your information. You will receive a link to create a new password via email.';
 $string['passwordsdiffer'] = 'The password confirmation does not match the password you entered.';
+$string['pluginname'] = 'Customized self-registration';
+$string['privacy:metadata'] = 'The Customized self-registration authentication plugin does not store any personal data.';
 $string['recaptcha'] = 'Adds a visual/audio confirmation form element to the sign-up page for customized self-registering users. This protects your site against spammers and contributes to a worthwhile cause. See https://www.google.com/recaptcha for more details.';
 $string['recaptcha_key'] = 'Enable reCAPTCHA element';
 $string['requirecountryandcity'] = 'Require country and city';

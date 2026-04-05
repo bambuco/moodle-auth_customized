@@ -22,9 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Auto-registro personalizado';
-$string['privacy:metadata'] = 'El plugin de auto-registro personalizado no almacena datos personales.';
-
 $string['confirmpassword'] = 'Confirmar contraseña';
 $string['confirmpassword_help'] = 'Si se habilita, se solicitará al usuario que confirme su contraseña en el formulario de registro.';
 $string['description'] = '<p>El auto-registro personalizado permite al usuario crear su propia cuenta mediante el botón \'Crear nueva cuenta\' en la página de inicio de sesión. El usuario recibe a continuación un correo electrónico con un enlace seguro a una página donde puede confirmar su cuenta. En futuros accesos, solamente se compara el usuario y contraseña respecto a los almacenados en la base de datos de Moodle.</p><p>Nota: Además de activar el plugin, para el auto-registro basado en correo electrónico también se debe seleccionar este método en el menú desplegable de la página \'Administrar autentificación\' </p>';
@@ -43,6 +40,8 @@ $string['noemail'] = 'Se ha intentado enviarle un correo electrónico sin éxito
 $string['passwordagain'] = 'Contraseña (de nuevo)';
 $string['passwordforgotteninstructions'] = 'Por favor, introduzca su información. Recibirá un enlace para crear una nueva contraseña por correo electrónico.';
 $string['passwordsdiffer'] = 'La confirmación de la contraseña no coincide con la contraseña que ha introducido.';
+$string['pluginname'] = 'Auto-registro personalizado';
+$string['privacy:metadata'] = 'El plugin de auto-registro personalizado no almacena datos personales.';
 $string['recaptcha'] = 'Agrega elemento de formulario de confirmación visual o auditiva a la página de acceso para los usuarios auto-registrados vía email. Esta opción protege su sitio contra los creadores de spam y contribuye a una buena causa. Para más detalles, visite http://www.google.com/recaptcha.';
 $string['recaptcha_key'] = 'Habilitar elemento reCAPTCHA';
 $string['requirecountryandcity'] = 'Requerir país y ciudad';
